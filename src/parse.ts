@@ -1,10 +1,4 @@
-export type CronSchedule = {
-  minute?: number | string;
-  hour?: number | string;
-  day?: number | string;
-  month?: number | string;
-  weekday?: number | string;
-};
+import type { CronSchedule } from "./type.ts";
 
 export function parseExpression(expression: string): CronSchedule {
   const parts = expression.split(" ");
