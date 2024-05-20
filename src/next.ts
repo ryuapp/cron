@@ -19,7 +19,7 @@ export function next(cs: CronSchedule, option?: CronScheduleOption): Date {
     next.setHours(next.getHours() + 1);
   }
 
-  if (cs.day !== undefined) {
+  if (cs.dayOfMonth !== undefined) {
     next.setDate(next.getDate() + 1);
   }
 
@@ -27,7 +27,7 @@ export function next(cs: CronSchedule, option?: CronScheduleOption): Date {
     next.setMonth(next.getMonth() + 1);
   }
 
-  if (cs.weekday !== undefined) {
+  if (cs.dayOfWeek !== undefined) {
     next.setDate(next.getDate() + 1);
   }
 

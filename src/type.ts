@@ -1,10 +1,18 @@
 export type CronSchedule = {
-  minute?: number | string;
-  hour?: number | string;
-  day?: number | string;
-  month?: number | string;
-  weekday?: number | string;
+  minute?: CronScheduleExpression;
+  hour?: CronScheduleExpression;
+  dayOfMonth?: CronScheduleExpression;
+  month?: CronScheduleExpression;
+  dayOfWeek?: CronScheduleExpression;
 };
+
+export type CronScheduleExpression = number | {
+  start?: number;
+  end?: number;
+  every?: number | number[];
+  exact?: number | number[];
+};
+
 export type CronScheduleOption = {
   now: Date;
 };
