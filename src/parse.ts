@@ -1,9 +1,9 @@
 export type CronDate = {
-  minute: string;
-  hour: string;
-  day: string;
-  month: string;
-  weekday: string;
+  minute: number | string;
+  hour: number | string;
+  day: number | string;
+  month: number | string;
+  weekday: number | string;
 };
 
 export function parseExpression(expression: string): CronDate {
@@ -11,10 +11,16 @@ export function parseExpression(expression: string): CronDate {
   const [minute, hour, day, month, weekday] = parts;
 
   return {
-    minute,
-    hour,
-    day,
-    month,
-    weekday,
+    minute: parsePart(minute),
+    hour: parsePart(hour),
+    day: parsePart(day),
+    month: parsePart(month),
+    weekday: parsePart(weekday),
   };
+}
+function parsePart(part: string): number | string {
+  if (/^\d+$/.test(part)) {
+    return parseInt(part);
+  }
+  return part;
 }
