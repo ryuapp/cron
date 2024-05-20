@@ -1,25 +1,28 @@
-export type CronDate = {
-  minute: number | string;
-  hour: number | string;
-  day: number | string;
-  month: number | string;
-  weekday: number | string;
+export type CronSchedule = {
+  minute?: number | string;
+  hour?: number | string;
+  day?: number | string;
+  month?: number | string;
+  weekday?: number | string;
 };
 
-export function parseExpression(expression: string): CronDate {
+export function parseExpression(expression: string): CronSchedule {
   const parts = expression.split(" ");
-  const [minute, hour, day, month, weekday] = parts;
+  const [minute, hour, day, month, weekday] = parts.map(parsePart);
+  const schedule: CronSchedule = {};
 
-  return {
-    minute: parsePart(minute),
-    hour: parsePart(hour),
-    day: parsePart(day),
-    month: parsePart(month),
-    weekday: parsePart(weekday),
-  };
+  if (minute !== undefined) schedule.minute = minute;
+  if (hour !== undefined) schedule.hour = hour;
+  if (day !== undefined) schedule.day = day;
+  if (month !== undefined) schedule.month = month;
+  if (weekday !== undefined) schedule.weekday = weekday;
+
+  return schedule;
 }
-function parsePart(part: string): number | string {
-  if (/^\d+$/.test(part)) {
+function parsePart(part: string): number | string | undefined {
+  if (part === "*") {
+    return undefined;
+  } else if (/^\d+$/.test(part)) {
     return parseInt(part);
   }
   return part;

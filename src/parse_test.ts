@@ -7,9 +7,6 @@ test("parse simple expression", () => {
   assertEquals(parseExpression("0 12 * * *"), {
     minute: 0,
     hour: 12,
-    day: "*",
-    month: "*",
-    weekday: "*",
   });
 });
 
@@ -27,8 +24,6 @@ test("parse mixed expression", () => {
   assertEquals(parseExpression("23 0-20/2 * * sun"), {
     minute: 23,
     hour: "0-20/2",
-    day: "*",
-    month: "*",
     weekday: "sun",
   });
 });
