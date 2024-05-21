@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { parseExpression } from "./parse.ts";
+import { parseExpression } from "./parse_expression.ts";
 
 const { test } = Deno;
 
