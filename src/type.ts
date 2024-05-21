@@ -14,5 +14,5 @@ export type CronScheduleExpression = number | {
 };
 
 export type CronScheduleOption = {
-  currentDate: Date;
+  currentDate?: Date;
 };
