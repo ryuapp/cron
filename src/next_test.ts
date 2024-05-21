@@ -7,7 +7,7 @@ const { test } = Deno;
 test("next minute", () => {
   const cs: CronSchedule = { minute: 0 };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 0, 1, 0, 1, 0, 0),
   );
 });
@@ -15,7 +15,7 @@ test("next minute", () => {
 test("next hour", () => {
   const cs: CronSchedule = { hour: 0 };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 0, 1, 1, 0, 0, 0),
   );
 });
@@ -23,7 +23,7 @@ test("next hour", () => {
 test("next day", () => {
   const cs: CronSchedule = { dayOfMonth: 1 };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 0, 2, 0, 0, 0, 0),
   );
 });
@@ -31,7 +31,7 @@ test("next day", () => {
 test("next month", () => {
   const cs: CronSchedule = { month: 1 };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 1, 1, 0, 0, 0, 0),
   );
 });
@@ -39,7 +39,7 @@ test("next month", () => {
 test("next dayOfweek", () => {
   const cs: CronSchedule = { dayOfWeek: 1 };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 0, 2, 0, 0, 0, 0),
   );
 });
@@ -53,7 +53,7 @@ test("next mixed", () => {
     dayOfWeek: 1,
   };
   assertEquals(
-    next(cs, { now: new Date(2024, 0, 1, 0, 0, 0, 0) }),
+    next(cs, { currentDate: new Date(2024, 0, 1, 0, 0, 0, 0) }),
     new Date(2024, 1, 3, 1, 1, 0, 0),
   );
 });

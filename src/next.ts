@@ -6,8 +6,8 @@ import type { CronSchedule, CronScheduleOption } from "./type.ts";
  * @returns Date
  */
 export function next(cs: CronSchedule, option?: CronScheduleOption): Date {
-  const now = option?.now ?? new Date();
-  const next = new Date(now);
+  const currentDate = option?.currentDate ?? Date.now();
+  const next = new Date(currentDate);
   next.setMilliseconds(0);
   next.setSeconds(0);
 
