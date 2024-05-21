@@ -69,3 +69,10 @@ test("parse mixed expression", () => {
     dayOfWeek: { every: 2 },
   });
 });
+
+test("parse expression with extra spaces", () => {
+  assertEquals(parseExpression("0  1 * *   *"), {
+    minute: 0,
+    hour: 1,
+  });
+});

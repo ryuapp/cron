@@ -1,7 +1,7 @@
 import type { CronSchedule, CronScheduleExpression } from "./type.ts";
 
 export function parseExpression(expression: string): CronSchedule {
-  const parts = expression.split(" ");
+  const parts = expression.replace(/\s{2,}/g, " ").split(" ");
   const [minute, hour, dayOfMonth, month, dayOfWeek] = parts.map(
     parseExpressionPart,
   );
