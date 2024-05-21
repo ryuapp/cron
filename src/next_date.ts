@@ -12,10 +12,12 @@ import type {
  * @returns Date
  */
 export function nextDate(cs: CronSchedule, option?: CronScheduleOption): Date {
-  const currentDate = option?.currentDate ?? Date.now();
+  const currentDate = option?.currentDate
+    ? new Date(option?.currentDate)
+    : new Date();
+  currentDate.setMilliseconds(0);
+  currentDate.setSeconds(0);
   let nextDate = new Date(currentDate);
-  nextDate.setMilliseconds(0);
-  nextDate.setSeconds(0);
 
   if (cs.minute !== undefined) {
     nextDate = nextMinute(nextDate, cs.minute);
@@ -31,6 +33,20 @@ export function nextDate(cs: CronSchedule, option?: CronScheduleOption): Date {
   }
   if (cs.dayOfWeek !== undefined) {
     nextDate = nextDayOfWeek(nextDate, cs.dayOfWeek);
+  }
+
+  if (nextDate.getTime() === currentDate.getTime()) {
+    if (cs.dayOfWeek !== undefined) {
+      nextDate.setDate(nextDate.getDate() + 7);
+    } else if (cs.dayOfMonth !== undefined) {
+      nextDate.setMonth(nextDate.getMonth() + 1);
+    } else if (cs.month !== undefined) {
+      nextDate.setFullYear(nextDate.getFullYear() + 1);
+    } else if (cs.hour !== undefined) {
+      nextDate.setDate(nextDate.getDate() + 1);
+    } else if (cs.minute !== undefined) {
+      nextDate.setHours(nextDate.getHours() + 1);
+    }
   }
 
   return nextDate;
