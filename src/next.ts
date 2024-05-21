@@ -1,7 +1,8 @@
 import type { CronSchedule, CronScheduleOption } from "./type.ts";
 /**
  * Return the next time from cron schedule.
- * @param cs CronSchedule
+ *
+ * @param cs CronSchedule parseCronExpression return value
  * @param option CronScheduleOption
  * @returns Date
  */

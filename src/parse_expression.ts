@@ -1,5 +1,11 @@
 import type { CronSchedule, CronScheduleExpression } from "./type.ts";
 
+/**
+ * Parse a cron expression.
+ *
+ * @param expression string - The cron expression.
+ * @returns CronSchedule
+ */
 export function parseExpression(expression: string): CronSchedule {
   const parts = expression.replace(/\s{2,}/g, " ").split(" ");
   const [minute, hour, dayOfMonth, month, dayOfWeek] = parts.map(
