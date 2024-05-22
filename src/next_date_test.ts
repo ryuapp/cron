@@ -52,3 +52,11 @@ test("If the time is the same, return the next time", () => {
     new Date("2024-01-12 2:00"),
   );
 });
+
+test("dayOfMonth and dayOfWeek", () => {
+  const cs: CronSchedule = { minute: 0, hour: 2, dayOfMonth: 15, dayOfWeek: 6 };
+  assertEquals(
+    nextDate(cs, { currentDate: new Date("2024-01-05 02:00") }),
+    new Date("2024-01-06 2:00"),
+  );
+});

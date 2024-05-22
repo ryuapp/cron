@@ -25,18 +25,38 @@ export function nextDate(cs: CronSchedule, option?: CronScheduleOption): Date {
   if (cs.hour !== undefined) {
     nextDate = nextHour(nextDate, cs.hour);
   }
-  if (cs.dayOfMonth !== undefined) {
+  if (cs.dayOfMonth !== undefined && cs.dayOfWeek !== undefined) {
+    const nextDateDayOfWeek = nextDayOfWeek(new Date(nextDate), cs.dayOfWeek);
+    const nextDateDayOfMonth = nextDayOfMonth(
+      new Date(nextDate),
+      cs.dayOfMonth,
+    );
+    if (nextDateDayOfWeek.getTime() < nextDateDayOfMonth.getTime()) {
+      nextDate = nextDateDayOfWeek;
+    } else {
+      nextDate = nextDateDayOfMonth;
+    }
+  } else if (cs.dayOfWeek !== undefined) {
+    nextDate = nextDayOfWeek(nextDate, cs.dayOfWeek);
+  } else if (cs.dayOfMonth !== undefined) {
     nextDate = nextDayOfMonth(nextDate, cs.dayOfMonth);
   }
   if (cs.month !== undefined) {
     nextDate = nextMonth(nextDate, cs.month);
   }
-  if (cs.dayOfWeek !== undefined) {
-    nextDate = nextDayOfWeek(nextDate, cs.dayOfWeek);
-  }
 
   if (nextDate.getTime() === currentDate.getTime()) {
-    if (cs.dayOfWeek !== undefined) {
+    if (cs.dayOfWeek !== undefined && cs.dayOfMonth !== undefined) {
+      const nextDateDayOfWeek = new Date(nextDate);
+      nextDateDayOfWeek.setDate(nextDateDayOfWeek.getDate() + 7);
+      const nextDateDayOfMonth = new Date(nextDate);
+      nextDateDayOfMonth.setMonth(nextDateDayOfMonth.getMonth() + 1);
+      if (nextDateDayOfWeek.getTime() < nextDateDayOfMonth.getTime()) {
+        nextDate = nextDateDayOfWeek;
+      } else {
+        nextDate = nextDateDayOfMonth;
+      }
+    } else if (cs.dayOfWeek !== undefined) {
       nextDate.setDate(nextDate.getDate() + 7);
     } else if (cs.dayOfMonth !== undefined) {
       nextDate.setMonth(nextDate.getMonth() + 1);
