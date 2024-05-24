@@ -7,10 +7,16 @@ import type { CronSchedule, CronScheduleExpression } from "./type.ts";
  * @returns CronSchedule
  */
 export function parseExpression(expression: string): CronSchedule {
-  const parts = expression.replace(/\s{2,}/g, " ").split(" ");
-  const [minute, hour, dayOfMonth, month, dayOfWeek] = parts.map(
-    parseExpressionPart,
+  const parts = expression.trim().match(
+    /(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/,
   );
+  if (!parts) {
+    throw new Error(`Invalid expression: ${expression}`);
+  }
+  const [_, minute, hour, dayOfMonth, month, dayOfWeek] = parts.map((part) =>
+    parseExpressionPart(part)
+  );
+
   const schedule: CronSchedule = {};
 
   if (minute !== null) {

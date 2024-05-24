@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals, assertThrows } from "@std/assert";
 import { parseExpression } from "./parse_expression.ts";
 
 const { test } = Deno;
@@ -70,9 +70,19 @@ test("parse mixed expression", () => {
   });
 });
 
-test("parse expression with extra spaces", () => {
+test("expression with extra spaces", () => {
   assertEquals(parseExpression("0  1 * *   *"), {
     minute: 0,
     hour: 1,
   });
+  assertEquals(parseExpression(" 0 1 * * * "), {
+    minute: 0,
+    hour: 1,
+  });
+});
+
+test("invalid expression", () => {
+  assertThrows(() => parseExpression("0 1"));
+  assertThrows(() => parseExpression("0 1 *"));
+  assertThrows(() => parseExpression("0 1 * *"));
 });
