@@ -8,7 +8,7 @@ import type { CronSchedule, CronScheduleExpression } from "./type.ts";
  */
 export function parseExpression(expression: string): CronSchedule {
   const parts = expression.trim().match(
-    /(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/,
+    /^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)$/,
   );
   if (!parts) {
     throw new Error(`Invalid expression: ${expression}`);

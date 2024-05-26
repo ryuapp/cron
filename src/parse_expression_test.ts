@@ -82,7 +82,8 @@ test("expression with extra spaces", () => {
 });
 
 test("invalid expression", () => {
-  assertThrows(() => parseExpression("0 1"));
   assertThrows(() => parseExpression("0 1 *"));
   assertThrows(() => parseExpression("0 1 * *"));
+  assertThrows(() => parseExpression("0 1 * * * *"));
+  assertThrows(() => parseExpression("0 1 * * * * *"));
 });
